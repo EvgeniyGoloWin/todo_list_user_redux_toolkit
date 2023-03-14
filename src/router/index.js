@@ -1,8 +1,9 @@
 import {createBrowserRouter} from "react-router-dom";
 
 import {UserList} from "../features/users/UserList";
-import {AddUser} from "../features/users/AddUser";
-import {EditUser} from "../features/users/EditUser";
+import {UserForm} from "../features/users/userForm";
+// import {AddUser} from "../features/users/AddUser";
+// import {EditUser} from "../features/users/EditUser";
 
 export const router = createBrowserRouter([
     {
@@ -11,10 +12,18 @@ export const router = createBrowserRouter([
     },
     {
         path: 'add-user',
-        element: <AddUser/>
+        element: <UserForm/>
     },
     {
         path: 'edit-user/:id',
-        element: <EditUser/>
-    }
+        element: <UserForm/>
+    },
+    // {
+    //     path: 'add-user',
+    //     element: <AddUser/>
+    // },
+    // {
+    //     path: 'edit-user/:id',
+    //     element: <EditUser/>
+    // }
 ])

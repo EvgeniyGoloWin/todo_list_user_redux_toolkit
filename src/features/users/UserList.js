@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteUser} from "../userSlice";
+import {deleteUser} from "./userSlice";
 import {Button} from "../../componets/Button";
 
 export const UserList = () => {

@@ -8,6 +8,7 @@ const userSlice = createSlice({
     reducers: {
         addUser: (state, action) => {
             state.push(action.payload);
+            localStorage.setItem('users', JSON.stringify(state));
         },
         editUser: (state, action) => {
             const {id, name, email} = action.payload;
@@ -15,13 +16,16 @@ const userSlice = createSlice({
             if (existingUser) {
                 existingUser.name = name;
                 existingUser.email = email;
+                localStorage.setItem('users', JSON.stringify(state));
             }
         },
         deleteUser: (state, action) => {
             const {id} = action.payload;
             const existingUser = state.find(user => user.id === id);
             if (existingUser) {
-                return state.filter(user => user.id !== id)
+                const updatedState = state.filter(user => user.id !== id);
+                localStorage.setItem('users', JSON.stringify(updatedState));
+                return updatedState;
             }
         }
     }
