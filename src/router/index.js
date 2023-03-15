@@ -26,4 +26,4 @@ export const router = createBrowserRouter([
     //     path: 'edit-user/:id',
     //     element: <EditUser/>
     // }
-])
+]);

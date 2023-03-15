@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Field} from '../../componets/Field';
 import {Button} from '../../componets/Button';
 import {useNavigate, useParams} from 'react-router';
@@ -11,23 +11,24 @@ export const UserForm = ({type}) => {
     const navigate = useNavigate();
     const params = useParams();
     const users = useSelector((store) => store.users);
-    const existingUser = users.filter(user => user.id === params.id);
+    //const existingUser = users.filter(user => user.id === params.id);
     // const {name, email} = existingUser[0];
-    const [values, setValues] = useState(() => {
+    const [values, setValues] = useState({
+        name: '',
+        email: '',
+    });
+
+    useEffect(() => {
         if (type === 'edit') {
             const existingUser = users.find((user) => user.id === params.id);
-            return {
+            setValues({
                 name: existingUser.name,
                 email: existingUser.email,
-            };
-        } else {
-            return {
-                name: '',
-                email: '',
-            };
+            });
         }
-    });
-    console.log(values)
+    }, [type, params.id, users]);
+
+    console.log(values);
 
     const handleSave = () => {
         if (type === 'edit') {
