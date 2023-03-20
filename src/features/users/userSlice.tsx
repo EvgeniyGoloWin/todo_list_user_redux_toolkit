@@ -1,7 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = [];
-
+export interface User {
+    id: number,
+    name: string,
+    email: string,
+}
+const usersFromLocalStorage = localStorage.getItem('users');
+const initialState: User[] = usersFromLocalStorage ? JSON.parse(usersFromLocalStorage) : [];
+//const initialState: User[] = JSON.parse(localStorage.getItem('users')) ? JSON.parse(localStorage.getItem('users')) : [];
 const userSlice = createSlice({
     name: 'users',
     initialState,

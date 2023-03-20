@@ -1,18 +1,21 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Field} from '../../componets/Field';
 import {Button} from '../../componets/Button';
 import {useNavigate, useParams} from 'react-router';
 import {v4 as uuidv4} from 'uuid';
 import {useDispatch, useSelector} from 'react-redux';
-import {addUser, editUser} from './userSlice';
+import {addUser, editUser, User} from './userSlice';
+import {RootState} from "../../Store";
 
-export const UserForm = ({type}) => {
+interface UserFormProps {
+    type: string;
+}
+
+export const UserForm: React.FC<UserFormProps> = ({type}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const params = useParams();
-    const users = useSelector((store) => store.users);
-    //const existingUser = users.filter(user => user.id === params.id);
-    // const {name, email} = existingUser[0];
+    const users = useSelector((store: RootState) => store.users);
     const [values, setValues] = useState({
         name: '',
         email: '',
@@ -20,11 +23,13 @@ export const UserForm = ({type}) => {
 
     useEffect(() => {
         if (type === 'edit') {
-            const existingUser = users.find((user) => user.id === params.id);
-            setValues({
-                name: existingUser.name,
-                email: existingUser.email,
-            });
+            const existingUser = users.find((user: User) => user.id === Number(params.id));
+            if (existingUser) {
+                setValues({
+                    name: existingUser.name,
+                    email: existingUser.email,
+                });
+            }
         }
     }, [type, params.id, users]);
 
